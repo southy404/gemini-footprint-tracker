@@ -4,7 +4,7 @@ An awareness project that makes the environmental cost of AI visible — trackin
 
 Built for the [DEV Earth Day Challenge 2026](https://dev.to).
 
-→ [Live Demo](https://gemini-footprint-tracker.vercel.app) · [Learn more about the methodology](/learn)
+→ [Live Demo](https://gemini-footprint-tracker.vercel.app)
 
 ---
 
@@ -66,7 +66,7 @@ The tracker uses Google's officially published baseline for a median Gemini Apps
 | CO₂    | 0.03 gCO₂e     |
 | Energy | 0.24 Wh        |
 
-Estimates are then scaled by weighted token count and a per-model multiplier. Full methodology is documented on the [/learn](/learn) page inside the app.
+Estimates are then scaled by weighted token count and a per-model multiplier. Full methodology is documented on the "/learn" page inside the app.
 
 ---
 
