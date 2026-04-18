@@ -24,7 +24,14 @@ export const MODEL_PROFILES: Record<
 const BASE_WATER_ML = 0.26;
 const BASE_CO2_G = 0.03;
 
-const REFERENCE_TOKENS = 400;
+// Median Gemini prompt laut Google: ~400 Tokens gesamt
+// Typisches Split: ~250 Input / ~150 Output
+const REFERENCE_PROMPT_TOKENS = 250;
+const REFERENCE_RESPONSE_TOKENS = 150;
+
+// Output-Tokens kosten mehr als Input-Tokens (Autoregression vs. einmaliger Forward-Pass)
+// Faktor ~3–4x ist in der Literatur gut belegt
+const OUTPUT_WEIGHT = 3.5;
 
 export function calculateFootprint({
   model,
@@ -35,18 +42,20 @@ export function calculateFootprint({
   promptTokens: number;
   responseTokens: number;
 }) {
-  const totalTokens = promptTokens + responseTokens;
+  // Gewichtete Tokenanzahl
+  const weightedTokens = promptTokens + responseTokens * OUTPUT_WEIGHT;
 
-  const tokenScale = Math.max(0.35, totalTokens / REFERENCE_TOKENS);
+  const referenceWeighted =
+    REFERENCE_PROMPT_TOKENS + REFERENCE_RESPONSE_TOKENS * OUTPUT_WEIGHT;
 
-  const modelMultiplier = MODEL_PROFILES[model].multiplier;
+  // tokenScale = 1.0 bei einem typischen Gemini-Median-Prompt
+  const tokenScale = Math.max(0.2, weightedTokens / referenceWeighted);
 
-  const water = BASE_WATER_ML * tokenScale * modelMultiplier;
-  const co2 = BASE_CO2_G * tokenScale * modelMultiplier;
+  const multiplier = MODEL_PROFILES[model].multiplier;
 
   return {
-    water,
-    co2,
-    tokens: totalTokens,
+    water: BASE_WATER_ML * tokenScale * multiplier,
+    co2: BASE_CO2_G * tokenScale * multiplier,
+    tokens: promptTokens + responseTokens,
   };
 }

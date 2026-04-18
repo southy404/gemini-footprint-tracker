@@ -103,3 +103,121 @@ body {
   font-size: 1.08em;
   color: #eef3ff;
 }
+.composer {
+  --border-width: 1.5px;
+
+  position: relative;
+  border-radius: 24px;
+  padding: 14px;
+  overflow: hidden;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.12) 0%,
+    rgba(255, 255, 255, 0.05) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(22px) saturate(150%);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+}
+
+.composer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: var(--border-width);
+  border-radius: inherit;
+
+  background: linear-gradient(
+    60deg,
+    hsl(224, 85%, 66%),
+    hsl(269, 85%, 66%),
+    hsl(314, 85%, 66%),
+    hsl(359, 85%, 66%),
+    hsl(44, 85%, 66%),
+    hsl(89, 85%, 66%),
+    hsl(134, 85%, 66%),
+    hsl(179, 85%, 66%)
+  );
+  background-size: 300% 300%;
+  background-position: 0% 50%;
+
+  opacity: 0;
+  transition: opacity 0.25s ease;
+
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+
+  pointer-events: none;
+}
+
+.composer:focus-within::before,
+.composer.composer-active::before {
+  opacity: 1;
+  animation: moveGradient 4s linear infinite;
+}
+
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+.gemini-mark {
+  --_size: 30px;
+
+  inline-size: var(--_size);
+  block-size: var(--_size);
+  flex: 0 0 auto;
+
+  background: linear-gradient(
+    to top right in oklch,
+    oklch(70% 0.5 340),
+    oklch(90% 0.5 200)
+  );
+
+  mask: radial-gradient(
+      closest-side,
+      #0000 calc(100% - 0.5px),
+      #000 calc(100% + 0.5px)
+    )
+    calc(-0.5 * var(--_size)) calc(-0.5 * var(--_size));
+
+  -webkit-mask: radial-gradient(
+      closest-side,
+      #0000 calc(100% - 0.5px),
+      #000 calc(100% + 0.5px)
+    )
+    calc(-0.5 * var(--_size)) calc(-0.5 * var(--_size));
+}
+
+.gemini-mark-loading {
+  animation: gemini-orbit 2.8s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes gemini-orbit {
+  0% {
+    transform: rotate(0turn);
+  }
+  18% {
+    transform: rotate(0.08turn);
+  }
+  38% {
+    transform: rotate(0.42turn);
+  }
+  62% {
+    transform: rotate(0.82turn);
+  }
+  82% {
+    transform: rotate(0.92turn);
+  }
+  100% {
+    transform: rotate(1turn);
+  }
+}

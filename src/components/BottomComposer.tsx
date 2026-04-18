@@ -27,7 +27,7 @@ export default function BottomComposer({
           : "pointer-events-none opacity-0 translate-y-8"
       }`}
     >
-      <div className="mx-auto w-full max-w-[680px]">
+      <div className="mx-auto w-full max-w-[900px] px-4 md:px-6">
         <div className="rounded-[32px] border border-white/10 bg-[#1d1f27]/95 p-4 shadow-[0_20px_80px_rgba(0,0,0,0.42)]">
           <textarea
             className="w-full min-h-[42px] max-h-[180px] resize-none border-none bg-transparent text-base leading-[1.45] text-white outline-none placeholder:text-[#b7bfcb]"

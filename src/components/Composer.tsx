@@ -13,8 +13,10 @@ export default function Composer({
   mode,
   setMode,
 }: Props) {
+  const isActive = value.trim().length > 0;
+
   return (
-    <div className="composer">
+    <div className={`composer ${isActive ? "composer-active" : ""}`}>
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -25,7 +27,9 @@ export default function Composer({
           <option value="normal">Normal</option>
           <option value="eco">Eco</option>
         </select>
-        <button onClick={onSend}>Send</button>
+        <button className="send-btn" onClick={onSend}>
+          Send
+        </button>
       </div>
     </div>
   );
