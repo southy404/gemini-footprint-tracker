@@ -1,4 +1,4 @@
-import { X, KeyRound, Database, PanelLeft } from "lucide-react";
+import { X, KeyRound, Database } from "lucide-react";
 
 type Props = {
   open: boolean;
@@ -7,6 +7,8 @@ type Props = {
   setApiKey: (v: string) => void;
   model: string;
   setModel: (v: string) => void;
+  menuPinned: boolean;
+  setMenuPinned: (value: boolean) => void;
   warning: string;
 };
 
@@ -114,6 +116,7 @@ export default function SettingsDrawer({
             </div>
           </div>
         </div>
+
         <div className="rounded-2xl border border-cyan-400/10 bg-cyan-400/[0.05] px-4 py-3">
           <div className="text-[11px] font-medium uppercase tracking-[0.16em] text-cyan-200/80">
             Local storage
@@ -130,7 +133,7 @@ export default function SettingsDrawer({
             Methodology
           </div>
           <div className="mt-1 text-sm leading-6 text-[#bcc9dd]">
-            This app uses Google’s published Gemini median baseline together
+            This app uses Google's published Gemini median baseline together
             with transparent scaling logic based on Gemini usage metadata.
           </div>
         </div>
