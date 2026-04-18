@@ -7,10 +7,14 @@ type Props = {
 };
 
 export default function ChatScreen({ history, onRedoLastAssistant }: Props) {
-  const lastAssistantIndex = [...history]
+  const assistantIndices = history
     .map((item, index) => ({ item, index }))
-    .filter(({ item }) => item.role === "assistant" && !item.isLoading)
-    .at(-1)?.index;
+    .filter(({ item }) => item.role === "assistant" && !item.isLoading);
+
+  const lastAssistantIndex =
+    assistantIndices.length > 0
+      ? assistantIndices[assistantIndices.length - 1].index
+      : undefined;
 
   return (
     <section className="mx-auto w-full max-w-[1080px] px-4 pb-[280px] pt-6 md:px-6 md:pb-[320px]">
