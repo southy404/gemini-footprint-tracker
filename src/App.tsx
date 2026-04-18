@@ -675,7 +675,7 @@ function AppShell() {
           model={model}
           setModel={setModel}
           menuPinned={menuPinned}
-          setMenuPinned={(value) => {
+          setMenuPinned={(value: boolean) => {
             setMenuPinned(value);
             if (value) setMenuOpen(true);
           }}
